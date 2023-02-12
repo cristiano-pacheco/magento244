@@ -6,7 +6,7 @@ use Magento\Framework\MessageQueue\PublisherInterface;
 
 class SampleQueuePublisher
 {
-    public const TOPIC_NAME = 'run_as_root.sample.queue';
+    public const TOPIC_NAME = 'run_as_root.sample-queue';
 
     public function __construct(private PublisherInterface $publisher)
     {
