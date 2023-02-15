@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
-    <exchange name="run_as_root" connection="amqp" type="topic">
-        <binding id="run_as_root.sample_queue_binding" topic="run_as_root.sample-queue" destinationType="queue" destination="run_as_root.sample-queue"/>
+    <exchange name="sample_exchange" connection="amqp" type="topic">
+        <binding id="sample_queue" topic="sample_topic" destinationType="queue" destination="sample_queue"/>
     </exchange>
 </config>

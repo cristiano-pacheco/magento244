@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
-    <consumer name="sampleQueueConsumer"
-              queue="run_as_root.sample-queue"
+    <consumer name="sample_queue"
+              queue="sample_queue"
               connection="amqp"
               handler="RunAsRoot\SampleQueue\Queue\Consumer\SampleQueueConsumer::execute"/>
 </config>
