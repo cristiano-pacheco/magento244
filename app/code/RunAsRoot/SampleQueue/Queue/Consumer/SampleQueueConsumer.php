@@ -6,6 +6,8 @@ class SampleQueueConsumer
 {
     public function execute(string $message): void
     {
+        echo $message.PHP_EOL;
 
+        throw new \Exception('Oh no!');
     }
 }

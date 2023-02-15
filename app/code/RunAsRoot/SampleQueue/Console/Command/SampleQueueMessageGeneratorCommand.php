@@ -13,8 +13,8 @@ use RunAsRoot\SampleQueue\Service\SendMessageToSampleQueueService;
 
 class SampleQueueMessageGeneratorCommand extends Command
 {
-    public const COMMAND_NAME = 'run-as-root:sample-queue:generate-message';
-    public const COMMAND_DESCRIPTION = 'Generates a message and sent it to the queue';
+    public const COMMAND_NAME = 'sample-queue:generate-message';
+    public const COMMAND_DESCRIPTION = 'Generates a message and sent it to the sample queue';
 
     public function __construct(
         string $name = null,

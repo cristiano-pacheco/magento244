@@ -18,6 +18,7 @@ class SendMessageToSampleQueueService
 
     private function getMessage(): string
     {
+        return 'Oh Yeah!';
         $channel = curl_init('https://api.chucknorris.io/jokes/random');
 
         curl_setopt($channel, CURLOPT_CUSTOMREQUEST, 'GET');
