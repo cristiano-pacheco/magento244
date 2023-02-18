@@ -4,3 +4,5 @@ General,General
 "Retry Limit","Retry Limit"
 "Queue Retry Configuration","Queue Retry Configuration"
 "Delay topic name "%1" is already used.","Delay topic name "%1" is already used."
+"Delay queues","Delay queues"
+"Enable delay queue","Enable delay queue"

@@ -3,6 +3,7 @@
 namespace RunAsRoot\MessageQueueRetry\Block\Adminhtml;
 
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
+use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig;
 
 class QueuesConfig extends AbstractFieldArray
 {
