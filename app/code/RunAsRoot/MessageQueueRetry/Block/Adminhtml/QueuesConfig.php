@@ -6,21 +6,16 @@ use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 
 class QueuesConfig extends AbstractFieldArray
 {
-    protected function _prepareToRender()
+    protected function _prepareToRender(): void
     {
         $this->addColumn(
-            'queue_name',
-            [ 'label' => __('Queue Name'), 'class' => 'required-entry' ]
+            MessageQueueRetryConfig::DELAY_TOPIC_NAME,
+            [ 'label' => __('Delay Topic Name'), 'class' => 'required-entry' ]
         );
 
         $this->addColumn(
-            'delay_in_seconds',
-            [ 'label' => __('Delay In Seconds'), 'class' => 'required-entry' ]
-        );
-
-        $this->addColumn(
-            'retry_limit',
-            [ 'label' => __('Retry Limit'), 'class' => 'required-entry' ]
+            MessageQueueRetryConfig::RETRY_LIMIT,
+            [ 'label' => __('Retry Limit'), 'class' => 'required-entry validate-zero-or-greater' ]
         );
 
         $this->_addAfter = false;
