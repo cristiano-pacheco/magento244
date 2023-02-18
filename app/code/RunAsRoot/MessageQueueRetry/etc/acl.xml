@@ -4,10 +4,11 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
+                <resource id="RunAsRoot_MessageQueueRetry::failed_queue" title="Failed Queue Management" sortOrder="1000"/>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="RunAsRoot_QueueRetry::config" title="Queue Retry Config" sortOrder="100"/>
+                            <resource id="RunAsRoot_QueueRetry::config" title="Queue Retry Config" sortOrder="1000"/>
                         </resource>
                     </resource>
                 </resource>
