@@ -32,6 +32,16 @@ class FailedQueue extends AbstractModel implements \RunAsRoot\MessageQueueRetry\
         $this->setData(self::MESSAGE_BODY, $value);
     }
 
+    public function getFailureDescription(): string
+    {
+        return $this->getData(self::FAILURE_DESCRIPTION);
+    }
+
+    public function setFailureDescription(string $value): void
+    {
+        $this->setData(self::FAILURE_DESCRIPTION, $value);
+    }
+
     public function getResourceId(): string
     {
         return $this->getData(self::RESOURCE_ID);

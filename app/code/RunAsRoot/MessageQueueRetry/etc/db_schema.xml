@@ -4,7 +4,7 @@
         <column xsi:type="bigint" name="entity_id" unsigned="false" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="topic_name" length="255" nullable="false"/>
         <column xsi:type="mediumtext" name="message_body" nullable="true"/>
-        <column xsi:type="varchar" name="resource_id" length="60" nullable="true"/>
+        <column xsi:type="text" name="failure_description" nullable="true"/>
         <column xsi:type="int" name="total_retries" nullable="true"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

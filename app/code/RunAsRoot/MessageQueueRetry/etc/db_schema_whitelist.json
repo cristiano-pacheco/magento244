@@ -4,6 +4,7 @@
             "entity_id": true,
             "topic_name": true,
             "message_body": true,
+            "failure_description": true,
             "creation_time": true,
             "update_time": true,
             "resource_id": true,

@@ -8,6 +8,7 @@ interface FailedQueueInterface
     public CONST ENTITY_ID = 'entity_id';
     public CONST TOPIC_NAME = 'topic_name';
     public CONST MESSAGE_BODY = 'message_body';
+    public CONST FAILURE_DESCRIPTION = 'failure_description';
     public CONST RESOURCE_ID = 'resource_id';
     public CONST TOTAL_RETRIES = 'total_retries';
     public CONST CREATED_AT = 'created_at';
@@ -17,6 +18,9 @@ interface FailedQueueInterface
 
     public function getMessageBody(): string;
     public function setMessageBody(string $value): void;
+
+    public function getFailureDescription(): string;
+    public function setFailureDescription(string $value): void;
 
     public function getResourceId(): string;
     public function setResourceId(string $value): void;

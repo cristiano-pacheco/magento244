@@ -84,6 +84,12 @@
                 <label translate="true">Resource Id</label>
             </settings>
         </column>
+        <column name="failure_description">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Failure Description</label>
+            </settings>
+        </column>
         <column name="message_body">
             <settings>
                 <filter>text</filter>
