@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace RunAsRoot\MessageQueueRetry\Controller\Adminhtml\MessageBody;
+namespace RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Message;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;

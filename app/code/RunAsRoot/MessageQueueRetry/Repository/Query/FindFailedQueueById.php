@@ -5,6 +5,7 @@ namespace RunAsRoot\MessageQueueRetry\Repository\Query;
 use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
 use RunAsRoot\MessageQueueRetry\Model\FailedQueueFactory as ModelFactory;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotFoundException;
 
 class FindFailedQueueById
 {

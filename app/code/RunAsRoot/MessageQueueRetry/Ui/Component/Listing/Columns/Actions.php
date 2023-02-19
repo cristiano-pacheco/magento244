@@ -15,9 +15,17 @@ class Actions extends Column
         }
 
         foreach ($dataSource['data']['items'] as &$item) {
-            $item[$this->getData('name')]['edit'] = [
+            $item[$this->getData('name')]['requeue'] = [
                 'href' => $this->context->getUrl(
-                    'failed_queue/messageBody/download',
+                    'failed_queue/message/requeue',
+                    ['message_id' => $item['entity_id']]
+                ),
+                'label' => __('Requeue it'),
+                'hidden' => false,
+            ];
+            $item[$this->getData('name')]['download'] = [
+                'href' => $this->context->getUrl(
+                    'failed_queue/message/download',
                     ['message_id' => $item['entity_id']]
                 ),
                 'label' => __('Download'),
