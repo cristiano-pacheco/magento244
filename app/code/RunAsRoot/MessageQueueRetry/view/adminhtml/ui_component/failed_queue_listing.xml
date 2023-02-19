@@ -90,7 +90,7 @@
                 <label translate="true">Failure Description</label>
             </settings>
         </column>
-        <column name="message_body">
+        <column name="message_body" class="RunAsRoot\MessageQueueRetry\Ui\Component\Listing\Columns\MessageBody">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Message Body</label>
