@@ -103,5 +103,13 @@
                 <label translate="true">Created At</label>
             </settings>
         </column>
+        <actionsColumn name="actions" class = "RunAsRoot\MessageQueueRetry\Ui\Component\Listing\Columns\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">true</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
     </columns>
 </listing>
