@@ -2,22 +2,27 @@
 
 namespace RunAsRoot\MessageQueueRetry\Service;
 
-use Magento\Framework\MessageQueue\PublisherInterface;
 use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotFoundException;
 use RunAsRoot\MessageQueueRetry\Repository\FailedQueueRepository;
 use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotBeDeletedException;
+use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeException;
+use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
+use RunAsRoot\MessageQueueRetry\Serializer\MessageSerializer;
+use RunAsRoot\MessageQueueRetry\Queue\Publisher;
 
 class PublishMessageToQueueService
 {
     public function __construct(
-        private PublisherInterface $publisher,
+        private Publisher $publisher,
         private FailedQueueRepository $failedQueueRepository
     ) {
     }
 
     /**
-     * @throws FailedQueueNotFoundException
      * @throws FailedQueueNotBeDeletedException
+     * @throws FailedQueueNotFoundException
+     * @throws InvalidMessageQueueConnectionTypeException
+     * @throws InvalidPublisherConfigurationException
      */
     public function execute(int $messageId): void
     {
