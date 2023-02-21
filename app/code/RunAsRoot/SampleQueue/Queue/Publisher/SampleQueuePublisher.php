@@ -3,6 +3,7 @@
 namespace RunAsRoot\SampleQueue\Queue\Publisher;
 
 use Magento\Framework\MessageQueue\PublisherInterface;
+use RunAsRoot\SampleQueue\Api\Data\ChuckNorrisJokeDataInterface;
 
 class SampleQueuePublisher
 {
@@ -12,7 +13,7 @@ class SampleQueuePublisher
     {
     }
 
-    public function execute(string $data): void
+    public function execute(ChuckNorrisJokeDataInterface $data): void
     {
         $this->publisher->publish(self::TOPIC_NAME, $data);
     }

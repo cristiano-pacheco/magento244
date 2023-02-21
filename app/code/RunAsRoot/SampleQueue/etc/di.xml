@@ -12,4 +12,5 @@
             <argument name="name" xsi:type="const">RunAsRoot\SampleQueue\Console\Command\SampleQueueMessageGeneratorCommand::COMMAND_NAME</argument>
         </arguments>
     </type>
+    <preference for="RunAsRoot\SampleQueue\Api\Data\ChuckNorrisJokeDataInterface" type="RunAsRoot\SampleQueue\Data\ChuckNorrisJokeData"/>
 </config>
