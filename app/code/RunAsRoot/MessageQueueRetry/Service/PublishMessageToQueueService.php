@@ -9,6 +9,7 @@ use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeExcep
 use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
 use RunAsRoot\MessageQueueRetry\Serializer\MessageSerializer;
 use RunAsRoot\MessageQueueRetry\Queue\Publisher;
+use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
 
 class PublishMessageToQueueService
 {
@@ -24,10 +25,22 @@ class PublishMessageToQueueService
      * @throws InvalidMessageQueueConnectionTypeException
      * @throws InvalidPublisherConfigurationException
      */
-    public function execute(int $messageId): void
+    public function executeById(int $messageId): void
     {
-        $message = $this->failedQueueRepository->findById($messageId);
-        $this->publisher->publish($message->getTopicName(), $message->getMessageBody());
-        $this->failedQueueRepository->deleteById($messageId);
+        $failedQueue = $this->failedQueueRepository->findById($messageId);
+        $this->publisher->publish($failedQueue->getTopicName(), $failedQueue->getMessageBody());
+        $this->failedQueueRepository->delete($failedQueue);
+    }
+
+    /**
+     * @throws FailedQueueNotBeDeletedException
+     * @throws FailedQueueNotFoundException
+     * @throws InvalidMessageQueueConnectionTypeException
+     * @throws InvalidPublisherConfigurationException
+     */
+    public function executeByFailedQueue(FailedQueue $failedQueue): void
+    {
+        $this->publisher->publish($failedQueue->getTopicName(), $failedQueue->getMessageBody());
+        $this->failedQueueRepository->delete($failedQueue);
     }
 }

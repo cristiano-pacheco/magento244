@@ -6,9 +6,8 @@ use RunAsRoot\MessageQueueRetry\Exception\FailedQueueCouldNotBeCreatedException;
 use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotFoundException;
 use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
-use RunAsRoot\MessageQueueRetry\Model\FailedQueueFactory;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue\CollectionFactory;
 use RunAsRoot\MessageQueueRetry\Repository\Command\CreateFailedQueueCommand;
+use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteFailedQueueByIdCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteFailedQueueCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindFailedQueueById;
 
@@ -17,6 +16,7 @@ class FailedQueueRepository
     public function __construct(
         private CreateFailedQueueCommand $createFailedQueueCommand,
         private DeleteFailedQueueCommand $deleteFailedQueueCommand,
+        private DeleteFailedQueueByIdCommand $deleteFailedQueueByIdCommand,
         private FindFailedQueueById $findFailedQueueById
     ) {
     }
@@ -42,6 +42,14 @@ class FailedQueueRepository
      */
     public function deleteById(int $id): void
     {
-        $this->deleteFailedQueueCommand->execute($id);
+        $this->deleteFailedQueueByIdCommand->execute($id);
+    }
+
+    /**
+     * @throws FailedQueueNotBeDeletedException
+     */
+    public function delete(FailedQueue $model): void
+    {
+        $this->deleteFailedQueueCommand->execute($model);
     }
 }

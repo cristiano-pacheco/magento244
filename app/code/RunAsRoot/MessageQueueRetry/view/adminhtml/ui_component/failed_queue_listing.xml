@@ -49,6 +49,30 @@
                 </templates>
             </settings>
         </filters>
+        <massaction name="listing_massaction">
+            <action name="requeue">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure to sent selected items to the queues?</message>
+                        <title translate="true">Requeue items</title>
+                    </confirm>
+                    <type>delete</type>
+                    <url path="failed_queue/message/massRequeue"/>
+                    <label translate="true">Requeue</label>
+                </settings>
+            </action>
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="failed_queue/message/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="failed_queue_columns">

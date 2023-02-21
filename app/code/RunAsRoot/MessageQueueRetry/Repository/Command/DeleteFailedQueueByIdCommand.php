@@ -2,27 +2,29 @@
 
 namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
-use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue as ResourceModel;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindFailedQueueById;
 use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotBeDeletedException;
 
-class DeleteFailedQueueCommand
+class DeleteFailedQueueByIdCommand
 {
-    public function __construct(private ResourceModel $resourceModel)
-    {
+    public function __construct(
+        private ResourceModel $resourceModel,
+        private FindFailedQueueById $findFailedQueueById
+    ) {
     }
 
     /**
      * @throws FailedQueueNotBeDeletedException
      */
-    public function execute(FailedQueue $model): void
+    public function execute(int $entityId): void
     {
         try {
+            $model = $this->findFailedQueueById->execute($entityId);
             $this->resourceModel->delete($model);
         } catch (\Exception $e) {
             throw new FailedQueueNotBeDeletedException(
-                __('Failed queue with id %1 could not deleted', $model->getId()), $e
+                __('Failed queue with id %1 could not deleted', $entityId), $e
             );
         }
     }
