@@ -56,7 +56,7 @@
                         <message translate="true">Are you sure to sent selected items to the queues?</message>
                         <title translate="true">Requeue items</title>
                     </confirm>
-                    <type>delete</type>
+                    <type>requeue</type>
                     <url path="failed_queue/message/massRequeue"/>
                     <label translate="true">Requeue</label>
                 </settings>
