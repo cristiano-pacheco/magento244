@@ -10,6 +10,11 @@ class QueuesConfig extends AbstractFieldArray
     protected function _prepareToRender(): void
     {
         $this->addColumn(
+            MessageQueueRetryConfig::MAIN_TOPIC_NAME,
+            [ 'label' => __('Main Topic Name'), 'class' => 'required-entry' ]
+        );
+
+        $this->addColumn(
             MessageQueueRetryConfig::DELAY_TOPIC_NAME,
             [ 'label' => __('Delay Topic Name'), 'class' => 'required-entry' ]
         );

@@ -7,7 +7,8 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class MessageQueueRetryConfig
 {
-    public const DELAY_TOPIC_NAME = 'delay_queues';
+    public const MAIN_TOPIC_NAME = 'main_topic_name';
+    public const DELAY_TOPIC_NAME = 'delay_topic_name';
     public const RETRY_LIMIT = 'retry_limit';
     private const XML_PATH_DELAY_QUEUES = 'message_queue_retry/general/delay_queues';
     private const XML_PATH_ENABLE_DELAY_QUEUE = 'message_queue_retry/general/enable_delay_queue';
