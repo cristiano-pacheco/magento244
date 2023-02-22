@@ -27,12 +27,24 @@ class MessageQueueRetryConfig
      */
     public function getDelayQueues(): array
     {
-        $configValue = $this->scopeConfig->getValue(self::XML_PATH_DELAY_QUEUES);
+        $configValues = $this->scopeConfig->getValue(self::XML_PATH_DELAY_QUEUES);
 
-        if ($configValue) {
-            return json_decode($configValue, true, 512, JSON_THROW_ON_ERROR);
+        if (!$configValues) {
+            return [];
         }
 
-        return [];
+        $configValues = json_decode($configValues, true, 512, JSON_THROW_ON_ERROR);
+
+        $result = [];
+        foreach ($configValues as $configValue) {
+            $mainTopicName = $configValue[self::MAIN_TOPIC_NAME] ?? null;
+            $result[$mainTopicName] = [
+                self::MAIN_TOPIC_NAME => $mainTopicName,
+                self::DELAY_TOPIC_NAME => $configValue[self::DELAY_TOPIC_NAME] ?? null,
+                self::RETRY_LIMIT => (int)$configValue[self::RETRY_LIMIT] ?? null
+            ];
+        }
+
+        return $result;
     }
 }
