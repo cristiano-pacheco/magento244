@@ -4,13 +4,13 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="failed_queue_listing_data_source" xsi:type="string">RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue\Grid\Collection</item>
+                <item name="message_queue_retry_listing_data_source" xsi:type="string">RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
-    <virtualType name="RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="mainTable" xsi:type="const">RunAsRoot\MessageQueueRetry\Api\Data\FailedQueueInterface::TABLE_NAME</argument>
+            <argument name="mainTable" xsi:type="const">RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface::TABLE_NAME</argument>
             <argument name="resourceModel" xsi:type="string">
                 RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message
             </argument>

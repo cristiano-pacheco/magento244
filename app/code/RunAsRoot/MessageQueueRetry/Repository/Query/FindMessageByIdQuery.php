@@ -3,11 +3,11 @@
 namespace RunAsRoot\MessageQueueRetry\Repository\Query;
 
 use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\FailedQueueFactory as ModelFactory;
+use RunAsRoot\MessageQueueRetry\Model\MessageFactory as ModelFactory;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
 use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
 
-class FindMessageById
+class FindMessageByIdQuery
 {
     public function __construct(
         private ResourceModel $resourceModel,

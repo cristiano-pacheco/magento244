@@ -4,7 +4,7 @@ namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
 use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
-use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageById;
+use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 
 class DeleteMessageCommand

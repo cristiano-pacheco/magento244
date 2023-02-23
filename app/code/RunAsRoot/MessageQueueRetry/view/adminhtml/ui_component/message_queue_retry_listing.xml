@@ -2,24 +2,24 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">failed_queue_listing.failed_queue_listing_data_source</item>
+            <item name="provider" xsi:type="string">message_queue_retry_listing.message_queue_retry_listing_data_source</item>
         </item>
     </argument>
     <settings>
         <spinner>failed_queue_columns</spinner>
         <deps>
-            <dep>failed_queue_listing.failed_queue_listing_data_source</dep>
+            <dep>message_queue_retry_listing.message_queue_retry_listing_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="failed_queue_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="message_queue_retry_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">entity_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>RunAsRoot_MessageQueueRetry::failed_queue</aclResource>
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="failed_queue_listing_data_source">
+        <aclResource>RunAsRoot_MessageQueueRetry::listing</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="message_queue_retry_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>entity_id</primaryFieldName>
@@ -57,7 +57,7 @@
                         <title translate="true">Requeue items</title>
                     </confirm>
                     <type>requeue</type>
-                    <url path="failed_queue/message/massRequeue"/>
+                    <url path="message_queue_retry/message/massRequeue"/>
                     <label translate="true">Requeue</label>
                 </settings>
             </action>
@@ -67,7 +67,7 @@
                         <message translate="true">Are you sure to delete selected items?</message>
                         <title translate="true">Delete items</title>
                     </confirm>
-                    <url path="failed_queue/message/massDelete"/>
+                    <url path="message_queue_retry/message/massDelete"/>
                     <type>delete</type>
                     <label translate="true">Delete</label>
                 </settings>

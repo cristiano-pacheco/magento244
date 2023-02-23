@@ -9,7 +9,7 @@ use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Repository\Command\CreateMessageCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageByIdCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageCommand;
-use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageById;
+use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 
 class MessageRepository
 {
@@ -17,7 +17,7 @@ class MessageRepository
         private CreateMessageCommand $createMessageCommand,
         private DeleteMessageCommand $deleteMessageCommand,
         private DeleteMessageByIdCommand $deleteMessageByIdCommand,
-        private FindMessageById $findMessageById
+        private FindMessageByIdQuery $findMessageByIdQuery
     ) {
     }
 
@@ -26,7 +26,7 @@ class MessageRepository
      */
     public function findById(int $id): Message
     {
-        return $this->findMessageById->execute($id);
+        return $this->findMessageByIdQuery->execute($id);
     }
 
     /**

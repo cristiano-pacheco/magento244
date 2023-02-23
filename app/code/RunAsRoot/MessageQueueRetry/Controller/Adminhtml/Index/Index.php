@@ -21,7 +21,7 @@ class Index extends Action
     public function execute(): Page
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('RabbitMQ failed messages'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Messages'));
         $resultPage->setActiveMenu(self::ADMIN_RESOURCE);
         return $resultPage;
     }

@@ -40,7 +40,7 @@ class PublishMessageToQueueService
      */
     public function executeByMessage(Message $message): void
     {
-        $this->publisher->publish($failedQueue->getTopicName(), $failedQueue->getMessageBody());
+        $this->publisher->publish($message->getTopicName(), $message->getMessageBody());
         $this->messageRepository->delete($message);
     }
 }
