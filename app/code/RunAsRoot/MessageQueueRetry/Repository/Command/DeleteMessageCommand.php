@@ -2,10 +2,9 @@
 
 namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
+use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
-use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
-use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 
 class DeleteMessageCommand
 {
@@ -16,13 +15,13 @@ class DeleteMessageCommand
     /**
      * @throws MessageCouldNotBeDeletedException
      */
-    public function execute(Message $model): void
+    public function execute(Message $message): void
     {
         try {
-            $this->resourceModel->delete($model);
+            $this->resourceModel->delete($message);
         } catch (\Exception $e) {
             throw new MessageCouldNotBeDeletedException(
-                __('Message with id %1 could not deleted', $model->getId()), $e
+                __('Message with id %1 could not deleted', $message->getId()), $e
             );
         }
     }

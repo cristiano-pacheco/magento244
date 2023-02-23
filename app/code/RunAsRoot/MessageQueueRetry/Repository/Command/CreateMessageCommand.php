@@ -15,16 +15,16 @@ class CreateMessageCommand
     /**
      * @throws MessageCouldNotBeCreatedException
      */
-    public function execute(Message $model): Message
+    public function execute(Message $message): Message
     {
         try {
-            $this->resourceModel->save($model);
+            $this->resourceModel->save($message);
         } catch (\Exception $e) {
             throw new MessageCouldNotBeCreatedException(
                 __('Could not save message: %1', $e->getMessage()), $e
             );
         }
 
-        return $model;
+        return $message;
     }
 }

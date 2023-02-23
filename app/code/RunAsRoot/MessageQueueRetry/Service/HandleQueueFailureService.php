@@ -29,7 +29,7 @@ class HandleQueueFailureService
     public function execute(Queue $queue, Envelope $message, Exception $exception): void
     {
         if (!$this->messageQueueRetryConfig->isDelayQueueEnabled()) {
-            $this->reject($queue, $message, $exception);
+            $queue->reject($message, false, $exception->getMessage());
             return;
         }
 
@@ -38,7 +38,7 @@ class HandleQueueFailureService
 
         // If there are no application headers, then it is the first time the message has been processed.
         if (!$applicationHeaders) {
-            $this->reject($queue, $message, $exception);
+            $queue->reject($message, false, $exception->getMessage());
             return;
         }
 
@@ -49,9 +49,8 @@ class HandleQueueFailureService
         }
 
         $topicName = $message->getProperties()['topic_name'] ?? null;
-
         if (!$topicName) {
-            $this->executeDefaultBehavior($queue, $message, $exception);
+            $queue->reject($message, false, $exception->getMessage());
             return;
         }
 
@@ -59,27 +58,24 @@ class HandleQueueFailureService
         $queueConfiguration = $delayQueueConfiguration[$topicName] ?? null;
 
         if (!$queueConfiguration) {
-            $this->reject($queue, $message, $exception);
+            $queue->reject($message, false, $exception->getMessage());
             return;
         }
 
         $retryLimit = $queueConfiguration[MessageQueueRetryConfig::RETRY_LIMIT] ?? 0;
-
         if ($totalRetries >= $retryLimit) {
+            // If message reaches the retry limit, then it is moved to the run_as_root_message table
             $messageModel = $this->messageFactory->create();
             $messageModel->setTopicName($topicName);
             $messageModel->setMessageBody($message->getBody());
             $messageModel->setFailureDescription($exception->getMessage());
             $messageModel->setTotalRetries($totalRetries);
             $this->messageRepository->create($messageModel);
+
+            // and discard the RabbitMQ's message.
             $queue->acknowledge($message);
         } else {
-            $this->reject($queue, $message, $exception);
+            $queue->reject($message, false, $exception->getMessage());
         }
-    }
-
-    private function reject(Queue $queue, Envelope $message, Exception $exception): void
-    {
-        $queue->reject($message, false, $exception->getMessage());
     }
 }

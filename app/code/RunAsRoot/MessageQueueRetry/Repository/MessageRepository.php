@@ -32,9 +32,9 @@ class MessageRepository
     /**
      * @throws MessageCouldNotBeCreatedException
      */
-    public function create(Message $entity): Message
+    public function create(Message $message): Message
     {
-        return $this->createMessageCommand->execute($entity);
+        return $this->createMessageCommand->execute($message);
     }
 
     /**
@@ -48,8 +48,8 @@ class MessageRepository
     /**
      * @throws MessageCouldNotBeDeletedException
      */
-    public function delete(Message $model): void
+    public function delete(Message $message): void
     {
-        $this->deleteMessageCommand->execute($model);
+        $this->deleteMessageCommand->execute($message);
     }
 }
