@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Queue;
 
@@ -52,6 +54,7 @@ class Consumer implements ConsumerInterface
         $queue = $this->configuration->getQueue();
         $maxIdleTime = $this->configuration->getMaxIdleTime();
         $sleep = $this->configuration->getSleep();
+
         if (!isset($maxNumberOfMessages)) {
             $queue->subscribe($this->getTransactionCallback($queue));
         } else {
@@ -70,6 +73,7 @@ class Consumer implements ConsumerInterface
         return function (EnvelopeInterface $message) use ($queue) {
             /** @var LockInterface $lock */
             $lock = null;
+
             try {
                 $topicName = $message->getProperties()['topic_name'];
                 $topicConfig = $this->communicationConfig->getTopic($topicName);
@@ -78,18 +82,20 @@ class Consumer implements ConsumerInterface
                 if ($topicConfig[CommunicationConfig::TOPIC_IS_SYNCHRONOUS]) {
                     $responseBody = $this->dispatchMessage($message, true);
                     $responseMessage = $this->envelopeFactory->create(
-                        ['body' => $responseBody, 'properties' => $message->getProperties()]
+                        [ 'body' => $responseBody, 'properties' => $message->getProperties() ]
                     );
                     $this->sendResponse($responseMessage);
                 } else {
                     $allowedTopics = $this->configuration->getTopicNames();
-                    if (in_array($topicName, $allowedTopics)) {
-                        $this->dispatchMessage($message);
-                    } else {
+
+                    if (!in_array($topicName, $allowedTopics)) {
                         $queue->reject($message);
                         return;
                     }
+
+                    $this->dispatchMessage($message);
                 }
+
                 $queue->acknowledge($message);
             } catch (MessageLockException $exception) {
                 $queue->acknowledge($message);
@@ -102,6 +108,7 @@ class Consumer implements ConsumerInterface
                 $this->logger->warning($exception->getMessage());
             } catch (Exception $exception) {
                 $this->handleQueueFailureService->execute($queue, $message, $exception);
+
                 if ($lock) {
                     $this->queueLockRepository->deleteById((int)$lock->getId());
                 }
@@ -136,7 +143,8 @@ class Consumer implements ConsumerInterface
 
         if (isset($decodedMessage)) {
             $messageSchemaType = $this->configuration->getMessageSchemaType($topicName);
-            if ($messageSchemaType == CommunicationConfig::TOPIC_REQUEST_TYPE_METHOD) {
+
+            if ($messageSchemaType === CommunicationConfig::TOPIC_REQUEST_TYPE_METHOD) {
                 foreach ($handlers as $callback) {
                     // The `array_values` is a workaround to ensure the same behavior in PHP 7 and 8.
                     $result = call_user_func_array($callback, array_values($decodedMessage));
@@ -145,12 +153,14 @@ class Consumer implements ConsumerInterface
             } else {
                 foreach ($handlers as $callback) {
                     $result = call_user_func($callback, $decodedMessage);
+
                     if ($isSync) {
                         return $this->processSyncResponse($topicName, $result);
                     }
                 }
             }
         }
+
         return null;
     }
 
@@ -164,9 +174,8 @@ class Consumer implements ConsumerInterface
         if (isset($result)) {
             $this->messageValidator->validate($topicName, $result, false);
             return $this->messageEncoder->encode($topicName, $result, false);
-        } else {
-            throw new LocalizedException(new Phrase('No reply message resulted in RPC.'));
         }
+
+        throw new LocalizedException(new Phrase('No reply message resulted in RPC.'));
     }
 }
-

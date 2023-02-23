@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Mapper;
 
 use Magento\Framework\Controller\Result\Raw as RawResponse;
+use RunAsRoot\MessageQueueRetry\Builder\MessageBodyDownloadFileNameBuilder;
 use RunAsRoot\MessageQueueRetry\Exception\EmptyQueueMessageBodyException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Builder\MessageBodyDownloadFileNameBuilder;
 
 class MessageToRawResponseMapper
 {

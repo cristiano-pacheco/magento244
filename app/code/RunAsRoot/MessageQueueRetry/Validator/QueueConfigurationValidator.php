@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Validator;
 
@@ -19,14 +21,16 @@ class QueueConfigurationValidator
         foreach ($configValues as $configValue) {
             $mainTopicName = $configValue[ConfigFieldNames::MAIN_TOPIC_NAME] ?? null;
             $delayTopicName = $configValue[ConfigFieldNames::DELAY_TOPIC_NAME] ?? null;
+
             if ($mainTopicName === null && $delayTopicName === null) {
                 continue;
             }
+
             if ($mainTopicName === $delayTopicName) {
                 throw new InvalidQueueConfigurationException(
                     new Phrase(
                         'The main topic name "%1" and delay topic name "%2" cannot be the same.',
-                        [$mainTopicName, $delayTopicName]
+                        [ $mainTopicName, $delayTopicName ]
                     )
                 );
             }
@@ -41,6 +45,7 @@ class QueueConfigurationValidator
     public function performUniqueValidation(array $configValues, string $field, string $name): void
     {
         $topicNames = [];
+
         foreach ($configValues as $configValue) {
             if (!isset($configValue[$field])) {
                 continue;
@@ -49,7 +54,8 @@ class QueueConfigurationValidator
             if (in_array($configValue[$field], $topicNames)) {
                 throw new InvalidQueueConfigurationException(
                     new Phrase(
-                        '%1 topic name "%2" is already used.', [$name, $configValue[$field]]
+                        '%1 topic name "%2" is already used.',
+                        [ $name, $configValue[$field] ]
                     )
                 );
             }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\System\Config;
 
@@ -36,12 +38,13 @@ class MessageQueueRetryConfig
         $configValues = json_decode($configValues, true, 512, JSON_THROW_ON_ERROR);
 
         $result = [];
+
         foreach ($configValues as $configValue) {
             $mainTopicName = $configValue[self::MAIN_TOPIC_NAME] ?? null;
             $result[$mainTopicName] = [
                 self::MAIN_TOPIC_NAME => $mainTopicName,
                 self::DELAY_TOPIC_NAME => $configValue[self::DELAY_TOPIC_NAME] ?? null,
-                self::RETRY_LIMIT => (int)$configValue[self::RETRY_LIMIT] ?? null
+                self::RETRY_LIMIT => (int)$configValue[self::RETRY_LIMIT] ?? null,
             ];
         }
 

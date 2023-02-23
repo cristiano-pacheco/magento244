@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
@@ -14,7 +16,7 @@ class DeleteQueueLockByIdCommand
     {
         $this->resourceConnection->getConnection()->delete(
             $this->resourceConnection->getTableName('queue_lock'),
-            ['id = ?' => $id]
+            [ 'id = ?' => $id ]
         );
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
@@ -24,7 +26,8 @@ class DeleteMessageByIdCommand
             $this->resourceModel->delete($model);
         } catch (\Exception $e) {
             throw new MessageCouldNotBeDeletedException(
-                __('Message with id %1 could not deleted', $entityId), $e
+                __('Message with id %1 could not deleted', $entityId),
+                $e
             );
         }
     }

@@ -1,15 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Service;
 
-use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
-use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
-use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
-use RunAsRoot\MessageQueueRetry\Serializer\MessageSerializer;
-use RunAsRoot\MessageQueueRetry\Queue\Publisher;
+use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
+use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Queue\Publisher;
+use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
 class PublishMessageToQueueService
 {

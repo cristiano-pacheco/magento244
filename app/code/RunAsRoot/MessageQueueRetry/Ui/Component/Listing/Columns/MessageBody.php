@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Ui\Component\Listing\Columns;
 
@@ -13,6 +15,7 @@ class MessageBody extends Column
                 if (!isset($item['message_body']) || !$item['message_body']) {
                     continue;
                 }
+
                 $item['message_body'] = substr($item['message_body'], 0, 100) . '...';
             }
         }

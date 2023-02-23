@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
@@ -21,7 +23,8 @@ class CreateMessageCommand
             $this->resourceModel->save($message);
         } catch (\Exception $e) {
             throw new MessageCouldNotBeCreatedException(
-                __('Could not save message: %1', $e->getMessage()), $e
+                __('Could not save message: %1', $e->getMessage()),
+                $e
             );
         }
 

@@ -1,16 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Service;
 
 use Exception;
+use JsonException;
 use Magento\Framework\Amqp\Queue;
+use Magento\Framework\MessageQueue\ConnectionLostException;
 use Magento\Framework\MessageQueue\Envelope;
+use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 use RunAsRoot\MessageQueueRetry\Model\MessageFactory;
 use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig;
-use JsonException;
-use Magento\Framework\MessageQueue\ConnectionLostException;
-use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 
 class HandleQueueFailureService
 {
@@ -43,12 +45,14 @@ class HandleQueueFailureService
         }
 
         $totalRetries = 1;
+
         if (isset($applicationHeaders->getNativeData()['x-death'][0]['count'])) {
             // +1 is added because the first time the message is processed, it is not counted as a retry.
             $totalRetries = $applicationHeaders->getNativeData()['x-death'][0]['count'] + 1;
         }
 
         $topicName = $message->getProperties()['topic_name'] ?? null;
+
         if (!$topicName) {
             $queue->reject($message, false, $exception->getMessage());
             return;
@@ -63,6 +67,7 @@ class HandleQueueFailureService
         }
 
         $retryLimit = $queueConfiguration[MessageQueueRetryConfig::RETRY_LIMIT] ?? 0;
+
         if ($totalRetries >= $retryLimit) {
             // If message reaches the retry limit, then it is moved to the run_as_root_message table
             $messageModel = $this->messageFactory->create();

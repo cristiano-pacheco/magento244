@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Queue;
 
@@ -51,8 +53,8 @@ class Publisher
                 'delivery_mode' => 2,
                 // md5() here is not for cryptographic use.
                 // phpcs:ignore Magento2.Security.InsecureFunction
-                'message_id' => md5(gethostname() . microtime(true) . uniqid($topicName, true))
-            ]
+                'message_id' => md5(gethostname() . microtime(true) . uniqid($topicName, true)),
+            ],
         ];
     }
 }

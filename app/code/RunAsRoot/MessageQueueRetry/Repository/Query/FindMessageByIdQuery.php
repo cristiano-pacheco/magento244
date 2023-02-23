@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Repository\Query;
 
+use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Model\MessageFactory as ModelFactory;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
-use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
 
 class FindMessageByIdQuery
 {

@@ -19,7 +19,8 @@
     "require": {
         "magento/composer-dependency-version-audit-plugin": "~0.1",
         "magento/composer-root-update-plugin": "~2.0",
-        "magento/product-community-edition": "2.4.5-p1"
+        "magento/product-community-edition": "2.4.5-p1",
+        "phpstan/phpdoc-parser": "^1.15.2"
     },
     "autoload": {
         "exclude-from-classmap": [
@@ -57,9 +58,10 @@
         "phpunit/phpunit": "~9.5.20",
         "sebastian/phpcpd": "^6.0.3",
         "slam/phpstan-extensions": "^6.0",
-        "squizlabs/php_codesniffer": "~3.6.0",
+        "squizlabs/php_codesniffer": "~3.7.0",
         "symfony/finder": "^5.2",
-        "thecodingmachine/phpstan-strict-rules": "^1.0"
+        "thecodingmachine/phpstan-strict-rules": "^1.0",
+        "slevomat/coding-standard": "^8.8"
     },
     "conflict": {
         "gene/bluefoot": "*"
@@ -87,10 +89,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard,../../magento/magento-coding-standard/"
-        ],
-        "post-update-cmd": [
-            "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard,../../magento/magento-coding-standard/"
+            "([ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard,../../magento/magento-coding-standard/,../../phpcompatibility/php-compatibility)"
         ],
         "phpcs": "vendor/bin/phpcs --standard=Magento2 app/code app/design",
         "phpcs-fixer": "vendor/bin/php-cs-fixer fix app/code",

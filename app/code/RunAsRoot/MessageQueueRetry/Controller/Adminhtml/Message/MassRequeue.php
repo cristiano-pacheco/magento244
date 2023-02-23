@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Message;
 
@@ -6,9 +8,9 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
-use RunAsRoot\MessageQueueRetry\Service\PublishMessageToQueueService;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
 use Magento\Ui\Component\MassAction\Filter;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
+use RunAsRoot\MessageQueueRetry\Service\PublishMessageToQueueService;
 
 class MassRequeue extends Action
 {
