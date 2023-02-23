@@ -44,12 +44,7 @@ class HandleQueueFailureService
             return;
         }
 
-        $totalRetries = 1;
-
-        if (isset($applicationHeaders->getNativeData()['x-death'][0]['count'])) {
-            // +1 is added because the first time the message is processed, it is not counted as a retry.
-            $totalRetries = $applicationHeaders->getNativeData()['x-death'][0]['count'] + 1;
-        }
+        $totalRetries = $this->getTotalRetries($applicationHeaders);
 
         $topicName = $message->getProperties()['topic_name'] ?? null;
 
@@ -58,8 +53,7 @@ class HandleQueueFailureService
             return;
         }
 
-        $delayQueueConfiguration = $this->messageQueueRetryConfig->getDelayQueues();
-        $queueConfiguration = $delayQueueConfiguration[$topicName] ?? null;
+        $queueConfiguration = $this->getQueueConfiguration($topicName);
 
         if (!$queueConfiguration) {
             $queue->reject($message, false, $exception->getMessage());
@@ -79,8 +73,30 @@ class HandleQueueFailureService
 
             // and discard the RabbitMQ's message.
             $queue->acknowledge($message);
-        } else {
-            $queue->reject($message, false, $exception->getMessage());
+            return;
         }
+
+        $queue->reject($message, false, $exception->getMessage());
+    }
+
+    private function getTotalRetries(array $applicationHeaders): int
+    {
+        $totalRetries = 1;
+
+        if (isset($applicationHeaders->getNativeData()['x-death'][0]['count'])) {
+            // +1 is added because the first time the message is processed, it is not counted as a retry.
+            $totalRetries = $applicationHeaders->getNativeData()['x-death'][0]['count'] + 1;
+        }
+
+        return $totalRetries;
+    }
+
+    /**
+     * @throws JsonException
+     */
+    private function getQueueConfiguration(string $topicName): ?array
+    {
+        $delayQueueConfiguration = $this->messageQueueRetryConfig->getDelayQueues();
+        return $delayQueueConfiguration[$topicName] ?? null;
     }
 }

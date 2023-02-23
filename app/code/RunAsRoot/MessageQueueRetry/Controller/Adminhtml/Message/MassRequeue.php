@@ -26,7 +26,6 @@ class MassRequeue extends Action
         parent::__construct($context);
     }
 
-
     public function execute(): Redirect
     {
         $redirect = $this->redirectFactory->create();

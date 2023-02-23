@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
     <exchange name="sample_exchange" connection="amqp" type="topic">
         <binding id="sample_queue" topic="sample_topic" destinationType="queue" destination="sample_queue">
             <arguments>
@@ -9,7 +10,8 @@
         </binding>
     </exchange>
     <exchange name="sample_exchange_delay" connection="amqp" type="topic">
-        <binding id="sample_exchange_delay" topic="sample_topic_delay" destinationType="queue" destination="sample_topic_delay">
+        <binding id="sample_exchange_delay" topic="sample_topic_delay" destinationType="queue"
+                 destination="sample_topic_delay">
             <arguments>
                 <argument name="x-dead-letter-exchange" xsi:type="string">sample_exchange</argument>
                 <argument name="x-dead-letter-routing-key" xsi:type="string">sample_topic</argument>
