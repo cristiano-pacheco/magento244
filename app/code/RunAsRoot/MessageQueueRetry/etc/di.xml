@@ -11,7 +11,9 @@
     <virtualType name="RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="const">RunAsRoot\MessageQueueRetry\Api\Data\FailedQueueInterface::TABLE_NAME</argument>
-            <argument name="resourceModel" xsi:type="string">RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue</argument>
+            <argument name="resourceModel" xsi:type="string">
+                RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message
+            </argument>
         </arguments>
     </virtualType>
 </config>

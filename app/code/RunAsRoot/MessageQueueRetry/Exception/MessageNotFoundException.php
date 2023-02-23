@@ -4,7 +4,7 @@ namespace RunAsRoot\MessageQueueRetry\Exception;
 
 use Magento\Framework\Exception\LocalizedException;
 
-class FailedQueueNotBeDeletedException extends LocalizedException
+class MessageNotFoundException extends LocalizedException
 {
 
 }

@@ -3,9 +3,10 @@
 namespace RunAsRoot\MessageQueueRetry\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
 
-class FailedQueue extends AbstractModel implements \RunAsRoot\MessageQueueRetry\Api\Data\FailedQueueInterface
+class Message extends AbstractModel implements MessageInterface
 {
     protected function _construct(): void
     {

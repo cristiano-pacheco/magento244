@@ -2,9 +2,9 @@
 
 namespace RunAsRoot\MessageQueueRetry\Api\Data;
 
-interface FailedQueueInterface
+interface MessageInterface
 {
-    public CONST TABLE_NAME = 'run_as_root_failed_queue';
+    public CONST TABLE_NAME = 'run_as_root_dead_letter_queue_message';
     public CONST ENTITY_ID = 'entity_id';
     public CONST TOPIC_NAME = 'topic_name';
     public CONST MESSAGE_BODY = 'message_body';

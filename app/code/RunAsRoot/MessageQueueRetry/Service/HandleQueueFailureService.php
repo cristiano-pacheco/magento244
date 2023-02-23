@@ -5,26 +5,26 @@ namespace RunAsRoot\MessageQueueRetry\Service;
 use Exception;
 use Magento\Framework\Amqp\Queue;
 use Magento\Framework\MessageQueue\Envelope;
-use RunAsRoot\MessageQueueRetry\Model\FailedQueueFactory;
-use RunAsRoot\MessageQueueRetry\Repository\FailedQueueRepository;
+use RunAsRoot\MessageQueueRetry\Model\MessageFactory;
+use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig;
 use JsonException;
 use Magento\Framework\MessageQueue\ConnectionLostException;
-use RunAsRoot\MessageQueueRetry\Exception\FailedQueueCouldNotBeCreatedException;
+use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 
 class HandleQueueFailureService
 {
     public function __construct(
         private MessageQueueRetryConfig $messageQueueRetryConfig,
-        private FailedQueueFactory $failedQueueFactory,
-        private FailedQueueRepository $failedQueueRepository
+        private MessageFactory $messageFactory,
+        private MessageRepository $messageRepository
     ) {
     }
 
     /**
      * @throws JsonException
      * @throws ConnectionLostException
-     * @throws FailedQueueCouldNotBeCreatedException
+     * @throws MessageCouldNotBeCreatedException
      */
     public function execute(Queue $queue, Envelope $message, Exception $exception): void
     {
@@ -66,12 +66,12 @@ class HandleQueueFailureService
         $retryLimit = $queueConfiguration[MessageQueueRetryConfig::RETRY_LIMIT] ?? 0;
 
         if ($totalRetries >= $retryLimit) {
-            $failedQueueMessage = $this->failedQueueFactory->create();
-            $failedQueueMessage->setTopicName($topicName);
-            $failedQueueMessage->setMessageBody($message->getBody());
-            $failedQueueMessage->setFailureDescription($exception->getMessage());
-            $failedQueueMessage->setTotalRetries($totalRetries);
-            $this->failedQueueRepository->create($failedQueueMessage);
+            $messageModel = $this->messageFactory->create();
+            $messageModel->setTopicName($topicName);
+            $messageModel->setMessageBody($message->getBody());
+            $messageModel->setFailureDescription($exception->getMessage());
+            $messageModel->setTotalRetries($totalRetries);
+            $this->messageRepository->create($messageModel);
             $queue->acknowledge($message);
         } else {
             $this->reject($queue, $message, $exception);

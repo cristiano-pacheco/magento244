@@ -7,8 +7,8 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Ui\Component\MassAction\Filter;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue\CollectionFactory;
-use RunAsRoot\MessageQueueRetry\Repository\FailedQueueRepository;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
+use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
 class MassDelete extends Action
 {
@@ -16,7 +16,7 @@ class MassDelete extends Action
 
     public function __construct(
         Context $context,
-        private FailedQueueRepository $failedQueueRepository,
+        private MessageRepository $messageRepository,
         private RedirectFactory $redirectFactory,
         private CollectionFactory $collectionFactory,
         private Filter $filter
@@ -32,8 +32,8 @@ class MassDelete extends Action
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());
 
-            foreach ($collection as $failedQueueItem) {
-                $this->failedQueueRepository->delete($failedQueueItem);
+            foreach ($collection as $message) {
+                $this->messageRepository->delete($message);
             }
 
             $this->messageManager->addSuccessMessage(__('The messages have been successfully deleted'));

@@ -7,7 +7,7 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use RunAsRoot\MessageQueueRetry\Service\PublishMessageToQueueService;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue\CollectionFactory;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
 class MassRequeue extends Action
@@ -32,8 +32,8 @@ class MassRequeue extends Action
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());
 
-            foreach ($collection as $failedQueueItem) {
-                $this->publishMessageToQueueService->executeByFailedQueue($failedQueueItem);
+            foreach ($collection as $message) {
+                $this->publishMessageToQueueService->executeByMessage($message);
             }
 
             $this->messageManager->addSuccessMessage(__('Messages queued successfully'));

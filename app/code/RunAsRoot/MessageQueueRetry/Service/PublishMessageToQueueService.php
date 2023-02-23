@@ -2,45 +2,45 @@
 
 namespace RunAsRoot\MessageQueueRetry\Service;
 
-use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotFoundException;
-use RunAsRoot\MessageQueueRetry\Repository\FailedQueueRepository;
-use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotBeDeletedException;
+use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
+use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
+use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
 use RunAsRoot\MessageQueueRetry\Serializer\MessageSerializer;
 use RunAsRoot\MessageQueueRetry\Queue\Publisher;
-use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
+use RunAsRoot\MessageQueueRetry\Model\Message;
 
 class PublishMessageToQueueService
 {
     public function __construct(
         private Publisher $publisher,
-        private FailedQueueRepository $failedQueueRepository
+        private MessageRepository $messageRepository
     ) {
     }
 
     /**
-     * @throws FailedQueueNotBeDeletedException
-     * @throws FailedQueueNotFoundException
+     * @throws MessageCouldNotBeDeletedException
+     * @throws MessageNotFoundException
      * @throws InvalidMessageQueueConnectionTypeException
      * @throws InvalidPublisherConfigurationException
      */
     public function executeById(int $messageId): void
     {
-        $failedQueue = $this->failedQueueRepository->findById($messageId);
-        $this->publisher->publish($failedQueue->getTopicName(), $failedQueue->getMessageBody());
-        $this->failedQueueRepository->delete($failedQueue);
+        $message = $this->messageRepository->findById($messageId);
+        $this->publisher->publish($message->getTopicName(), $message->getMessageBody());
+        $this->messageRepository->delete($message);
     }
 
     /**
-     * @throws FailedQueueNotBeDeletedException
-     * @throws FailedQueueNotFoundException
+     * @throws MessageCouldNotBeDeletedException
+     * @throws MessageNotFoundException
      * @throws InvalidMessageQueueConnectionTypeException
      * @throws InvalidPublisherConfigurationException
      */
-    public function executeByFailedQueue(FailedQueue $failedQueue): void
+    public function executeByMessage(Message $message): void
     {
         $this->publisher->publish($failedQueue->getTopicName(), $failedQueue->getMessageBody());
-        $this->failedQueueRepository->delete($failedQueue);
+        $this->messageRepository->delete($message);
     }
 }

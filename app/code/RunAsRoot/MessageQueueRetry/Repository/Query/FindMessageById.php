@@ -2,12 +2,12 @@
 
 namespace RunAsRoot\MessageQueueRetry\Repository\Query;
 
-use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
+use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Model\FailedQueueFactory as ModelFactory;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue as ResourceModel;
-use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotFoundException;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
 
-class FindFailedQueueById
+class FindMessageById
 {
     public function __construct(
         private ResourceModel $resourceModel,
@@ -16,15 +16,15 @@ class FindFailedQueueById
     }
 
     /**
-     * @throws FailedQueueNotFoundException
+     * @throws MessageNotFoundException
      */
-    public function execute(int $entityId): FailedQueue
+    public function execute(int $entityId): Message
     {
         $model = $this->modelFactory->create();
         $this->resourceModel->load($model, $entityId);
 
         if (!$model->getId()) {
-            throw new FailedQueueNotFoundException(__('Failed queue with id "%1" could not be found.', $entityId));
+            throw new MessageNotFoundException(__('Message with id "%1" could not be found.', $entityId));
         }
 
         return $model;

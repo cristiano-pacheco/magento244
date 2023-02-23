@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue;
+namespace RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use RunAsRoot\MessageQueueRetry\Model\FailedQueue as Model;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\FailedQueue as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\Message as Model;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
 
 class Collection extends AbstractCollection
 {

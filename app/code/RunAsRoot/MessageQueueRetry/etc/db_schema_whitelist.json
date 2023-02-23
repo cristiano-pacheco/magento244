@@ -1,5 +1,5 @@
 {
-    "run_as_root_failed_queue": {
+    "run_as_root_dead_letter_queue_message": {
         "column": {
             "entity_id": true,
             "topic_name": true,
@@ -12,7 +12,7 @@
             "updated_at": true
         },
         "index": {
-            "RUN_AS_ROOT_FAILED_QUEUE_TOPIC_NAME": true
+            "RUN_AS_ROOT_DEAD_LETTER_QUEUE_MESSAGE_TOPIC_NAME": true
         },
         "constraint": {
             "PRIMARY": true

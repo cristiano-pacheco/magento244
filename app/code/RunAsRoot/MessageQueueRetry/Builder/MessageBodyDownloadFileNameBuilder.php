@@ -2,12 +2,12 @@
 
 namespace RunAsRoot\MessageQueueRetry\Builder;
 
-use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
+use RunAsRoot\MessageQueueRetry\Model\Message;
 
 class MessageBodyDownloadFileNameBuilder
 {
-    public function build(FailedQueue $failedQueueModel): string
+    public function build(Message $message): string
     {
-        return $failedQueueModel->getTopicName() . '_' . $failedQueueModel->getId() . '.json';
+        return $message->getTopicName() . '_' . $message->getId() . '.json';
     }
 }

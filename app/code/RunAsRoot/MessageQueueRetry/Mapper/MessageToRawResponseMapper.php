@@ -4,10 +4,10 @@ namespace RunAsRoot\MessageQueueRetry\Mapper;
 
 use Magento\Framework\Controller\Result\Raw as RawResponse;
 use RunAsRoot\MessageQueueRetry\Exception\EmptyQueueMessageBodyException;
-use RunAsRoot\MessageQueueRetry\Model\FailedQueue;
+use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Builder\MessageBodyDownloadFileNameBuilder;
 
-class FailedQueueModelToRawResponseMapper
+class MessageToRawResponseMapper
 {
     public function __construct(
         private MessageBodyDownloadFileNameBuilder $messageBodyDownloadFileNameBuilder
@@ -17,14 +17,14 @@ class FailedQueueModelToRawResponseMapper
     /**
      * @throws EmptyQueueMessageBodyException
      */
-    public function map(FailedQueue $failedQueueModel, RawResponse $rawResponse): RawResponse
+    public function map(Message $message, RawResponse $rawResponse): RawResponse
     {
-        if (!$failedQueueModel->getMessageBody()) {
+        if (!$message->getMessageBody()) {
             throw new EmptyQueueMessageBodyException(__('Message body is empty'));
         }
 
-        $contentLength = strlen($failedQueueModel->getMessageBody());
-        $fileName = $this->messageBodyDownloadFileNameBuilder->build($failedQueueModel);
+        $contentLength = strlen($message->getMessageBody());
+        $fileName = $this->messageBodyDownloadFileNameBuilder->build($message);
 
         $rawResponse->setHttpResponseCode(200);
         $rawResponse->setHeader('Pragma', 'public', true);
@@ -32,7 +32,7 @@ class FailedQueueModelToRawResponseMapper
         $rawResponse->setHeader('Content-type', 'application/json', true);
         $rawResponse->setHeader('Content-Length', $contentLength, true);
         $rawResponse->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true);
-        $rawResponse->setContents($failedQueueModel->getMessageBody());
+        $rawResponse->setContents($message->getMessageBody());
 
         return $rawResponse;
     }

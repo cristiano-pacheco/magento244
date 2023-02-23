@@ -7,9 +7,9 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\Raw as RawResponse;
 use Magento\Framework\Controller\Result\RawFactory;
 use RunAsRoot\MessageQueueRetry\Exception\EmptyQueueMessageBodyException;
-use RunAsRoot\MessageQueueRetry\Exception\FailedQueueNotFoundException;
-use RunAsRoot\MessageQueueRetry\Mapper\FailedQueueModelToRawResponseMapper;
-use RunAsRoot\MessageQueueRetry\Repository\FailedQueueRepository;
+use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
+use RunAsRoot\MessageQueueRetry\Mapper\MessageToRawResponseMapper;
+use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
 class Download extends Action
 {
@@ -17,23 +17,23 @@ class Download extends Action
 
     public function __construct(
         Context $context,
-        private FailedQueueRepository $failedQueueRepository,
+        private MessageRepository $messageRepository,
         private RawFactory $rawFactory,
-        private FailedQueueModelToRawResponseMapper $failedQueueModelToRawResponseMapper
+        private MessageToRawResponseMapper $messageToRawResponseMapper
     ) {
         parent::__construct($context);
     }
 
     /**
      * @throws EmptyQueueMessageBodyException
-     * @throws FailedQueueNotFoundException
+     * @throws MessageNotFoundException
      */
     public function execute(): RawResponse
     {
         $messageId = (int)$this->getRequest()->getParam('message_id');
-        $failedQueueModel = $this->failedQueueRepository->findById($messageId);
+        $message = $this->messageRepository->findById($messageId);
         $rawResponse = $this->rawFactory->create();
-        $this->failedQueueModelToRawResponseMapper->map($failedQueueModel, $rawResponse);
+        $this->messageToRawResponseMapper->map($message, $rawResponse);
 
         return $rawResponse;
     }

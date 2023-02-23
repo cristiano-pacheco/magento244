@@ -3,12 +3,12 @@
 namespace RunAsRoot\MessageQueueRetry\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use RunAsRoot\MessageQueueRetry\Api\Data\FailedQueueInterface;
+use RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface;
 
-class FailedQueue extends AbstractDb
+class Message extends AbstractDb
 {
     protected function _construct(): void
     {
-        $this->_init(FailedQueueInterface::TABLE_NAME, FailedQueueInterface::ENTITY_ID);
+        $this->_init(MessageInterface::TABLE_NAME, MessageInterface::ENTITY_ID);
     }
 }
