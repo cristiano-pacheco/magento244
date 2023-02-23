@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+source "build/bin/config"
+source "build/bin/vcs-changed-files"
+
+PHPSTAN_BIN=${PHPSTAN_BIN:=build/tools/bin/phpstan}
+
+vcs-changed-files
+
+[[ -z "${CHANGED_FILES}" ]] && echo "no changed files" && exit 0
+
+${PHP_BIN} ${PHPSTAN_BIN} analyse --level=8 ${CHANGED_FILES} --error-format=gitlab

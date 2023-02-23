@@ -1,0 +1,27 @@
+PHP_BIN=${PHP_BIN:=php}
+GIT_BIN=${GIT_BIN:=git}
+PHPMD_BIN=${PHPMD_BIN:=build/tools/bin/phpmd}
+PHPCPD_BIN=${PHPCPD_BIN:=build/tools/bin/phpcpd}
+PHPCS_BIN=${PHPCS_BIN:=build/tools/phpcs/bin/phpcs}
+PHPCBF_BIN=${PHPCBF_BIN:=build/tools/phpcs/bin/phpcbf}
+APP_DB_HOST=${APP_DB_HOST:=mysql}
+APP_DB_USER=${APP_DB_USER:=root}
+APP_DB_PASS=${APP_DB_PASS:=root}
+APP_DB1_NAME=${APP_DB1_NAME:=db01}
+APP_DB2_NAME=${APP_DB2_NAME:=db02}
+ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:=elasticsearch}
+ELASTICSEARCH_PORT=${ELASTICSEARCH_PORT:=9200}
+PROJECT_ROOT=${CI_PROJECT_DIR:=${PWD}}
+CI_COMMIT_BRANCH=${CI_COMMIT_BRANCH:=${CI_COMMIT_BRANCH}}
+PHPCBF_GIT_PUSH=${PHPCBF_GIT_PUSH:=0}
+
+SOURCE_DIRS="src/tectake" # comma seperated list of dirs to scan
+SOURCE_DIR_LIST="src/tectake" # space seperated list of dirs to scan
+SOURCE_INCLUDE_LIST="src/tectake" # pipe separated list
+
+FRONTEND_THEME="tectake/default"
+LOCALES_ADMIN="de_DE en_US"
+LOCALES_FRONTEND="de_DE en_US"
+
+DOCS_THEME_GIT_URL="https://github.com/squidfunk/mkdocs-material.git"
+DOCS_THEME_VERSION="5.0.1"

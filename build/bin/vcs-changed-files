@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+function vcs-changed-files(){
+    echo "---------- CHANGED FILES ----------"
+
+    if [ -z "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" ]; then
+        MERGE_BASE=$(git log --decorate --oneline | grep -m2 -E "(\b[0-9a-f]{5,40}\b)\s\(.*\)" | tail -n1 | cut -d ' ' -f 1)
+    else
+        MERGE_BASE=$(git merge-base "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" HEAD)
+    fi
+
+    printf "MERGE_BASE:\n%s\n" "${MERGE_BASE}"
+
+    CHANGED_FILES=$(git diff --diff-filter=MATd --name-only "${MERGE_BASE}" | grep -E "(${SOURCE_INCLUDE_LIST})" | grep "\.php" || true)
+    printf "CHANGED FILES:\n%s\n" "${CHANGED_FILES}"
+
+    export CHANGED_FILES
+}
+
+function vcs-added-files(){
+    STAGED_FILES_RAW=$(git diff --name-only --cached --diff-filter=ACMR HEAD | grep \.php || echo "");
+
+    echo "Checking PHP Code-Style..."
+    STAGED_FILES=""
+    for FILE in ${STAGED_FILES_RAW}
+    do
+        STAGED_FILES="${STAGED_FILES} ./${FILE}"
+    done
+
+    CHANGED_FILES=${STAGED_FILES}
+    export CHANGED_FILES
+}

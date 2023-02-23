@@ -44,7 +44,9 @@
     },
     "require-dev": {
         "allure-framework/allure-phpunit": "~1.5.0",
+        "bitexpert/phpstan-magento": "^0.28.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+        "ergebnis/phpstan-rules": "^1.0",
         "friendsofphp/php-cs-fixer": "~3.4.0",
         "lusitanian/oauth": "~0.8.10",
         "magento/magento-coding-standard": "*",
@@ -54,8 +56,10 @@
         "phpstan/phpstan": "^1.6.8",
         "phpunit/phpunit": "~9.5.20",
         "sebastian/phpcpd": "^6.0.3",
+        "slam/phpstan-extensions": "^6.0",
         "squizlabs/php_codesniffer": "~3.6.0",
-        "symfony/finder": "^5.2"
+        "symfony/finder": "^5.2",
+        "thecodingmachine/phpstan-strict-rules": "^1.0"
     },
     "conflict": {
         "gene/bluefoot": "*"
@@ -80,5 +84,27 @@
     ],
     "extra": {
         "magento-force": "override"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard,../../magento/magento-coding-standard/"
+        ],
+        "post-update-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard,../../magento/magento-coding-standard/"
+        ],
+        "phpcs": "vendor/bin/phpcs --standard=Magento2 app/code app/design",
+        "phpcs-fixer": "vendor/bin/php-cs-fixer fix app/code",
+        "phpstan": "vendor/bin/phpstan analyse app --no-progress --memory-limit=-1",
+        "phpunit": "vendor/bin/phpunit -c phpunit.xml --coverage-clover 'reports/coverage/coverage.xml' --coverage-html=reports/coverage --log-junit reports/junit.xml --verbose",
+        "config:apply": "bin/magento config:data:import config/store/ dev",
+        "tests": [
+            "@phpcs",
+            "@phpstan",
+            "@phpunit"
+        ],
+        "sniffer:php8.1": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpcs -p ./vendor --standard=vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion 8.1"
+        ]
     }
 }

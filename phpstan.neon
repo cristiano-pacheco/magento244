@@ -1,0 +1,50 @@
+parameters:
+  level: 8
+  fileExtensions:
+    - php
+    - phtml
+  paths:
+    - app/code/RunAsRoot
+  excludePaths:
+    - app/code/SampleQueue/*
+    - app/code/*/*/Test/*
+    - src/*/*/src/Test/*
+    - src/*/*/Test/*
+    - '*/_files/*'
+    - '*/_fixtures/*'
+    - '*/registration.php'
+  bootstrapFiles:
+    - dev/tests/unit/framework/bootstrap.php
+    #- vendor/autoload.php
+    #- build/tools/vendor/bitexpert/phpstan-magento/autoload.php
+  ignoreErrors:
+    # @todo this could be removed if extensionInterfaces where generated
+    - '#PHPDoc tag @var for variable .* contains unknown class .*ExtensionInterface#'
+    - '#Call to method .* on an unknown class .*Extension#'
+    - '#Call to method .* on an unknown class .*ExtensionInterface#'
+    - '#Call to an undefined method .*ExtensibleDataInterface#'
+    - '#Call to an undefined method .*ExtensionInterface#'
+
+  reportUnmatchedIgnoredErrors: false
+  checkAlwaysTrueInstanceof: true
+  checkFunctionNameCase: true
+  checkMissingIterableValueType: false
+  checkGenericClassInNonGenericObjectType: false
+  checkTooWideReturnTypesInProtectedAndPublicMethods: true
+  checkUninitializedProperties: true
+
+includes:
+  - build/tools/vendor/bitexpert/phpstan-magento/extension.neon
+  - build/tools/vendor/phpstan/phpstan/conf/bleedingEdge.neon
+  - build/tools/vendor/phpstan/phpstan-phpunit/extension.neon
+
+services:
+  - class: SlamPhpStan\ClassNotationRule
+  - class: SlamPhpStan\GotoRule
+  - class: SlamPhpStan\StringToClassRule
+  - class: SlamPhpStan\UnusedVariableRule
+  - class: SlamPhpStan\MissingClosureParameterTypehintRule
+  - class: TheCodingMachine\PHPStan\Rules\Exceptions\ThrowMustBundlePreviousExceptionRule
+  - class: Ergebnis\PHPStan\Rules\Classes\PHPUnit\Framework\TestCaseWithSuffixRule
+  - class: Ergebnis\PHPStan\Rules\Files\DeclareStrictTypesRule
+  - class: Ergebnis\PHPStan\Rules\Statements\NoSwitchRule
