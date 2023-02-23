@@ -12,7 +12,7 @@ use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
 class MassDelete extends Action
 {
-    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::failed_queue';
+    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::mass_delete';
 
     public function __construct(
         Context $context,

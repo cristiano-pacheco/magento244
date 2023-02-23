@@ -12,7 +12,7 @@ use Magento\Ui\Component\MassAction\Filter;
 
 class MassRequeue extends Action
 {
-    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::failed_queue';
+    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::mass_requeue';
 
     public function __construct(
         Context $context,

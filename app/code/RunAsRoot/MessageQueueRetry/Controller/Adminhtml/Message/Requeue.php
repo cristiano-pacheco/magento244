@@ -10,7 +10,7 @@ use RunAsRoot\MessageQueueRetry\Service\PublishMessageToQueueService;
 
 class Requeue extends Action
 {
-    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::failed_queue';
+    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::requeue';
 
     public function __construct(
         Context $context,

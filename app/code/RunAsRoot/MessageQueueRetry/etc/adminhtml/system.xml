@@ -9,7 +9,7 @@
             <class>separator-top</class>
             <label>Message Queue Retry</label>
             <tab>run_as_root</tab>
-            <resource>RunAsRoot_QueueRetry::config</resource>
+            <resource>RunAsRoot_MessageQueueRetry::config</resource>
             <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>General</label>
                 <field id="enable_delay_queue" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">

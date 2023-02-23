@@ -8,7 +8,14 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="RunAsRoot_QueueRetry::config" title="Queue Retry Config" sortOrder="1000"/>
+                            <resource id="RunAsRoot_MessageQueueRetry::message_queue_retry" title="Run as Root Message Queue Retry" translate="title" sortOrder="30">
+                                <resource id="RunAsRoot_MessageQueueRetry::config" title="Admin Configuration" sortOrder="10"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::listing" title="Listing" sortOrder="20"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::download" title="Download" sortOrder="30"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::mass_delete" title="Mass Action Delete" sortOrder="40"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::mass_requeue" title="Mass Action Requeue" sortOrder="50"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::requeue" title="Requeue" sortOrder="60"/>
+                            </resource>
                         </resource>
                     </resource>
                 </resource>

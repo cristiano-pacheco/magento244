@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="RunAsRoot_MessageQueueRetry::run_as_root" title="RunAsRoot" module="RunAsRoot_MessageQueueRetry" sortOrder="1000" resource="RunAsRoot_MessageQueueRetry::failed_queue"/>
-        <add id="RunAsRoot_MessageQueueRetry::failed_queue_manage" title="Failed queue messages" translate="title" module="RunAsRoot_MessageQueueRetry" sortOrder="10" parent="RunAsRoot_MessageQueueRetry::run_as_root" action="failed_queue/index/index" resource="RunAsRoot_MessageQueueRetry::failed_queue"/>
+        <add id="RunAsRoot_MessageQueueRetry::message_queue_retry" title="RunAsRoot" module="RunAsRoot_MessageQueueRetry" sortOrder="1000" resource="RunAsRoot_MessageQueueRetry::message_queue_retry"/>
+        <add id="RunAsRoot_MessageQueueRetry::message_queue_manage" title="Manage messages" translate="title" module="RunAsRoot_MessageQueueRetry" sortOrder="10" parent="RunAsRoot_MessageQueueRetry::message_queue_retry" action="message_queue_retry/index/index" resource="RunAsRoot_MessageQueueRetry::listing"/>
     </menu>
 </config>

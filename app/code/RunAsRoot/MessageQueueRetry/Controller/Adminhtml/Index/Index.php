@@ -9,7 +9,7 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action
 {
-    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::failed_queue';
+    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::listing';
 
     public function __construct(
         Context $context,
@@ -21,7 +21,7 @@ class Index extends Action
     public function execute(): Page
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('Failed queue messages'));
+        $resultPage->getConfig()->getTitle()->prepend(__('RabbitMQ failed messages'));
         $resultPage->setActiveMenu(self::ADMIN_RESOURCE);
         return $resultPage;
     }

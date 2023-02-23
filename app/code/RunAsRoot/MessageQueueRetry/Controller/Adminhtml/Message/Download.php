@@ -13,7 +13,7 @@ use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
 class Download extends Action
 {
-    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::failed_queue';
+    public const ADMIN_RESOURCE = 'RunAsRoot_MessageQueueRetry::download';
 
     public function __construct(
         Context $context,
