@@ -72,3 +72,6 @@ atlassian*
 /generated/*
 !/generated/.htaccess
 .DS_Store
+
+reports/
+.phpunit.result.cache
