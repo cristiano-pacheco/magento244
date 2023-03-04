@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Index\Index;
 
-class IndexTest extends TestCase
+final class IndexTest extends TestCase
 {
     private Index $sut;
     private PageFactory|MockObject $pageFactoryMock;

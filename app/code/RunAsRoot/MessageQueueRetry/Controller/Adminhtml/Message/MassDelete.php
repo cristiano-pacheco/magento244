@@ -25,6 +25,7 @@ class MassDelete extends Action
     ) {
         parent::__construct($context);
     }
+
     public function execute(): Redirect
     {
         $redirect = $this->redirectFactory->create();
@@ -32,7 +33,7 @@ class MassDelete extends Action
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());
 
-            foreach ($collection as $message) {
+            foreach ($collection->getItems() as $message) {
                 $this->messageRepository->delete($message);
             }
 
@@ -43,6 +44,8 @@ class MassDelete extends Action
             );
         }
 
-        return $redirect->setPath('message_queue_retry/index/index');
+        $redirect->setPath('message_queue_retry/index/index');
+
+        return $redirect;
     }
 }
