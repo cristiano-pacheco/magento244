@@ -75,3 +75,4 @@ atlassian*
 
 reports/
 .phpunit.result.cache
+.modman
