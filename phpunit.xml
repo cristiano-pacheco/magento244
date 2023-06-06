@@ -4,8 +4,7 @@
          colors="true"
          columns="max"
          beStrictAboutTestsThatDoNotTestAnything="false"
-         bootstrap="./dev/tests/unit/framework/bootstrap.php"
->
+         bootstrap="./dev/tests/unit/framework/bootstrap.php">
     <testsuite name="Unit Test Suite">
         <directory suffix="Test.php">./app/code/*/*/Test/Unit</directory>
     </testsuite>
@@ -16,7 +15,8 @@
     </php>
     <coverage includeUncoveredFiles="true" disableCodeCoverageIgnore="true">
         <include>
-            <directory suffix=".php">./src/tectake/*</directory>
+            <directory suffix=".php">./app/code/*</directory>
+            <directory suffix=".php">./.modman/*</directory>
         </include>
         <exclude>
             <file>./app/code/RunAsRoot/MessageQueueRetry/registration.php</file>

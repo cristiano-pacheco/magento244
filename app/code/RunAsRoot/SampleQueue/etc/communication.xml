@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
-    <topic name="sample_topic" request="RunAsRoot\SampleQueue\Api\Data\ChuckNorrisJokeDataInterface"/>
-    <topic name="sample_topic_delay" request="RunAsRoot\SampleQueue\Api\Data\ChuckNorrisJokeDataInterface"/>
-</config>
