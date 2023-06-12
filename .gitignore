@@ -76,3 +76,4 @@ atlassian*
 reports/
 .phpunit.result.cache
 .modman
+src/run_as_root

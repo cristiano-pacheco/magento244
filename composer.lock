@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "474be7b94194df643aebacaa6f2bdd21",
+    "content-hash": "e980b0dbf8a91ec850d49c9993cda90c",
     "packages": [
         {
             "name": "2tvenom/cborencode",
@@ -20211,6 +20211,67 @@
             "time": "2023-04-11T11:48:15+00:00"
         },
         {
+            "name": "run_as_root/ext-magento2-google-shopping-feed",
+            "version": "dev-feature/#5-add-pipeline",
+            "dist": {
+                "type": "path",
+                "url": "src/run_as_root/ext-magento2-google-shopping-feed",
+                "reference": "8956b9f59e769301df9fadeee76d95259e7cd5d6"
+            },
+            "require": {
+                "magento/framework": "*",
+                "magento/module-catalog": "*",
+                "magento/module-configurable-product": "*",
+                "magento/module-directory": "*",
+                "magento/module-eav": "*",
+                "magento/module-import-export": "*",
+                "magento/module-inventory-sales": "*",
+                "magento/module-inventory-sales-api": "*",
+                "magento/module-review": "*",
+                "magento/module-store": "*",
+                "psr/log": "*"
+            },
+            "require-dev": {
+                "magento/magento-coding-standard": "^31.0",
+                "pdepend/pdepend": "^2.14",
+                "phpunit/phpunit": "~9.5.20",
+                "roave/security-advisories": "dev-latest",
+                "sebastian/phpcpd": "^6.0",
+                "slevomat/coding-standard": "^8.12",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "src/registration.php"
+                ],
+                "psr-4": {
+                    "RunAsRoot\\GoogleShoppingFeed\\": "src"
+                }
+            },
+            "scripts": {
+                "post-install-cmd": [
+                    "([ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard,../../magento/magento-coding-standard/,../../phpcompatibility/php-compatibility)"
+                ],
+                "test": [
+                    "./vendor/bin/phpunit -c phpunit.xml"
+                ],
+                "sniffer": [
+                    "vendor/bin/phpcs --colors -p ./src --standard=phpcs-ruleset.xml"
+                ],
+                "fix-style": [
+                    "vendor/bin/phpcbf --colors -p ./src --standard=phpcs-ruleset.xml"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "This module provides a google shopping product feed csv export.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "sabberworm/php-css-parser",
             "version": "8.4.0",
             "source": {
@@ -27951,9 +28012,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
